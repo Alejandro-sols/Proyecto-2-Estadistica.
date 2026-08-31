@@ -1,7 +1,142 @@
 - Class: meta
   Course: Practica II
   Lesson: Distribución Muestrales Media y Proporcion
-  Author: your name goes here
+  Author: Gael González 261768
   Type: Standard
-  Organization: your organization's name goes here
+  Organization: UACJ
   Version: 2.4.5
+
+- Class: text
+  Output: "Bienvenido a la leccion: Distribucion muestrales media y proporcion."
+  
+- Class: text
+  Output: "En esta leccion veremos 2 temas: Distribucion muestral de la media y distribucion muestral de la proporcion, comencemos."
+  
+- Class: text
+  Output: "Primero, que es 'distribucion muestral de la media?' es la distribucion de probabilidad de todas las medias muestrales posibles que pueden obtenerse de muestras de un tamaño fijo extraidas de una poblacion. (RPubs, 2024)"
+  
+- Class: text
+  Output: "Imagina que administras un servidos y deseas estimar el tiempo de ejecucion de un software, no analizas toda la poblacion de peticiones, en su lugar, tomas muestras de tamaño n y calculas su promedio."
+  
+- Class: mult_question
+  Output: "Que describe la distribucion muestral de la media?"
+  AnswerChoices: "La variabilidad de las medias calculadas apartir de multiples muestras de la misma poblacion.;El tiempo de ejecucion individual de cada peticion recibida en el servidor.;El total de errores presentes en una sola muestra."
+  CorrectAnswer: "La variabilidad de las medias calculadas apartir de multiples muestras de la misma poblacion."
+  AnswerTests: omnitest(correctVal='La variabilidad de las medias calculadas apartir de multiples muestras de la misma poblacion.')
+  Hint: "Recuerda que analizamos el comportamiento estadistico (La media) al extraer muchas muestras no cada dato individual."
+  
+  # Sample: R Core Team. (2019). R: A language and environment for statistical computing (Version 3.6.2) [Manual de software]. R Foundation for Statistical Computing. https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/sample
+- Class: cmd_question
+  Output: "En tu entorno cuentas con el vector 'poblacionTiempos', extrae una muestra aleatoria de tamaño n = 30 y calcula su media. Usa las funciones mean() y sample()."
+  CorrectAnswer: "mean(sample(poblacionTiempos, 30))"
+  AnswerTests: omnitest(correctExpr='mean(sample(poblacionTiempos, 30))', strict = FALSE)
+  Hint: "Escribe una de las funciones dentro de la otra, si tienes mas dudas pon ?sample o ?mean para ver guias detalladas de las funciones."
+  
+- Class: text
+  Output: "Si repites ese comando, el resultado cambiara ligeramente debido al error muestral, pero para visualizar la distribucion de todas las medias posibles, simulemos 1000 muestras."
+  
+  # R-bloggers. (2023, 11 de julio). The replicate function in R. R-bloggers. https://www.r-bloggers.com/2023/07/the-replicate-function-in-r/
+- Class: cmd_question
+  Output: "Guarda en una variable llamada 'mediasMuestrales' el resultado de calcular la media de 1000 muestras de tamaño n = 30. Usa la funcion replicate()"
+  CorrectAnswer: "mediasMuestrales <- replicate(1000, mean(sample(poblacionTiempos, 30)))"
+  AnswerTests: omnitest(correctExpr='mediasMuestrales <- replicate(1000, mean(sample(poblacionTiempos, 30)))')
+  Hint: "Si tienes dudas de como se usa 'replicate()', solo pon ?replicate para ver una 'wiki' sobre la funcion."
+  
+- Class: cmd_question
+  Output: "Ahora calcula el promedio de tus 1000 medias muestrales usando la funcion: mean()."
+  CorrectAnswer: "mean(mediasMuestrales)"
+  AnswerTests: omnitest(correctExpr = 'mean(mediasMuestrales)')
+  Hint: "Usa la variable que creaste recientemente y la funcion mean(), usa ?mean si no sabes como usarla."
+  
+- Class: mult_question
+  Output: "Al comparar la media de las medias muestrales con el valor real de la poblacion (Aprox: 250 ms), que se concluye?"
+  AnswerChoices: "La media muestral es un estimador insesgado porque el promedio de las medias muestrales coincide con la media poblacional.;La desviacion estandar de la poblacion.;El tamaño total de la muestra."
+  CorrectAnswer: "La media muestral es un estimador insesgado porque el promedio de las medias muestrales coincide con la media poblacional."
+  AnswerTests: omnitest(correctVal='La media muestral es un estimador insesgado porque el promedio de las medias muestrales coincide con la media poblacional.')
+  Hint: "Compara el valor numerico obtenido con los 250 ms con los que fue generada la poblacion."
+  
+- Class: text
+  Output: "Muy bien! ahora pasemos a la segunda parte de esta primera leccion."
+  
+- Class: text
+  Output: "A diferencia de la media (Que evalua datos cuantitativos como milisegundos), la proporcion analiza la frecuencia de eventos binomiales (Exito vs Fallo)."
+  
+- Class: mult_question
+  Output: "En cual de los siguientes escenarios utilizarias una distribucion muestral de la proporcion en lugar de la media?"
+  AnswerChoices: "Para estimar el porcentaje de peticiones a un servidor que terminan en error HTTP 500.;Para medir la velocidad promedio de descarga de los usuarios en megabits por  segundo.;Para calcular la duracion promedio de procesamiento de una transferencia en base de datos."
+  CorrectAnswer: "Para estimar el porcentaje de peticiones a un servidor que terminan en error HTTP 500."
+  AnswerTests: omnitest(correctVal='Para estimar el porcentaje de peticiones a un servidor que terminan en error HTTP 500.')
+  Hint: "Busca la opcion que mida un evento que pueda ser categorizado en formato (Exito/error) en lugar de una medicion numerica."
+  
+- Class: cmd_question
+  Output: "En tu entorno cuentas con el vector 'peticionesServidor' donde 1 representa 'Peticion correcta' y 0 'Peticion con error'. Calcula la proporcion muestral de peticiones correctas en una muestra de tamaño n = 50."
+  CorrectAnswer: "mean(sample(peticionesServidor, 50))"
+  AnswerTests: omnitest(correctExpr='mean(sample(peticionesServidor, 50))', strict = FALSE)
+  Hint: "Todo lo que necesitas es simplemente dos funciones, sample() y mean()."
+  
+- Class: cmd_question
+  Output: "Guarda en una variable llamada 'proporcionesMuestrales' el resultado de simular 1000 muestras de tamaño n = 50 usando replicate()."
+  CorrectAnswer: "proporcionesMuestrales <- replicate(1000, mean(sample(peticionesServidor, 50)))"
+  AnswerTests: omnitest(correctExpr='proporcionesMuestrales <- replicate(1000, mean(sample(peticionesServidor, 50)))')
+  Hint: "Todo esto lo vimos anteriormente, recuerda como usar las funciones, pero si no puedes, usa '?' y luego el nombre de la funcion sin los '()'."
+  
+- Class: text
+  Output: "Al igual que con la media, si calculas mean(proporcionesMuestrales), obtendras un valor casi identico a la proporcion real p de la poblacion."
+  
+- Class: text
+  Output: "Felicidades! has completado la leccion de analisis de distribuciones muestrales tanto para la media como para la proporcion."
+  
+- Class: text
+  Output: "Bien, terminamos con el tema 1, ahora el tema 2: Distribucion muestral de la proporcion."
+  
+- Class: text
+  Output: "Denuevo lo primero, que es Distribucion muestral de la proporcion? Es la distribucion de probabilidad de las proporciones muestrales obtenidas de todas las muestras posibles de tamaño extraidas de una poblacion con una proporcion poblacion. Esta distribucion se utiliza para calcular la probabilidad de que una proporcion muestral se  acerque al valor poblacional real. (Probabilidad y estadistica, 2021)"
+  
+- Class: text
+  Output: "En 'poblacionMuestral' tenemos 1000 registros codificados como 1 (Exitosa) y 0 (Fallida). La proporcion muestral es simplemente el promedio de 1s y 0s en una muestra."
+  
+- Class: mult_question
+  Output: "Porque la funcion mean() nos sirve para calcular la proporcion de peticiones exitosas en un vector de 1s y 0s?"
+  AnswerChoices: "Porque la suma de los 1s dividida entre el total de elementos muestra la proporcion p.;Porque la media solo funciona con valores que son numeros enteros positivos.; Porque el lenguaje de programacion R convierte automaticamente los 0s en 1s al usar mean()."
+  CorrectAnswer: "Porque la suma de los 1s dividida entre el total de elementos muestra la proporcion p."
+  AnswerTests: omnitest(correctVal='Porque la suma de los 1s dividida entre el total de elementos muestra la proporcion p.')
+  Hint: "Recuerda que sumar 1s cuenta los casos de exito, y dividir entre n da la proporcion."
+  
+- Class: cmd_question
+  Output: "Simula la distribucion muestral de la proporcion calculando la proporcion de peticiones exitosas en 1000 muestras de tamaño n = 40, guarda el resultado en una nueva variable llamada 'proporcionesMuestrales'."
+  CorrectAnswer: "proporcionesMuestrales <- replicate(1000, mean(sample(poblacionPeticiones, 40)))"
+  AnswerTests: omnitest(correctExpr='proporcionesMuestrales <- replicate(1000, mean(sample(poblacionPeticiones, 40)))')
+  Hint: "Usa los comandos que has visto anteriormente"
+  
+- Class: cmd_question
+  Output: "Calcula el promedio de tus 1000 proporciones muestrales guardadas en 'proporcionesMuestrales' usando mean()."
+  CorrectAnswer: "mean(proporcionesMuestrales)"
+  AnswerTests: omnitest(correctExpr='mean(proporcionesMuestrales)')
+  Hint: "Usa la funcion mean() pasando como argumento la variable proporcionesMuestrales."
+  
+- Class: mult_question
+  Output: "Al evaluar la media de las proporciones muestrales obtenidas. Que propiedad de los estimadores se comprueba?"
+  AnswerChoices: "La proporcion muestral es un estimador insesgado de la proporcion poblacional p.; El tamaño de la muestra afectara el valor que se obtendra de la proporcion poblacional real.;Las proporciones muestrales siempre son mayores a la proporcion real."
+  CorrectAnswer: "La proporcion muestral es un estimador insesgado de la proporcion poblacional p."
+  AnswerTests: omnitest(correctVal='La proporcion muestral es un estimador insesgado de la proporcion poblacional p.')
+  Hint: "Observa que el valor promedio de p se aproxima al valor real p de la poblacion."
+  
+- Class: text
+  Output: "Para cerrar esta leccion, hagamos un breve repaso comparativo entre la distribucion muestral de la media y la de la proporcion."
+  
+- Class: mult_question
+  Output: "Cual es la principal diferencia entre la distribucion muestral de la media y la de la proporcion?"
+  AnswerChoices: "La media analiza variables cuantitativas continuas y la proporcion analiza la frecuencia de eventos binomiales (exito/fracaso).;La distribucion de la media utiliza 1s y 0s mientras que la proporcion usa numeros decimales;La proporcion no sufre de error muestral al cambiar el tamaño de la muestra."
+  CorrectAnswer: "La media analiza variables cuantitativas continuas y la proporcion analiza la frecuencia de eventos binomiales (exito/fracaso)."
+  AnswerTests: omnitest(correctVal='La media analiza variables cuantitativas continuas y la proporcion analiza la frecuencia de eventos binomiales (exito/fracaso).')
+  Hint: "Piensa en el tipo de datos: tiempos en milisegundos vs peticiones exitosas/fallidas."
+  
+- Class: mult_question
+  Output: "Que sucede con la variabilidad (error estandar) de ambas distribuciones muestrales a medida que aumentamos el tamaño de muestra n?"
+  AnswerChoices: "La variabilidad disminuye, haciendo que las estimaciones sean mas precisas.;La variabilidad aumenta considerablemente.;La variabilidad permanece exactamente igual sin importar el tamaño de n."
+  CorrectAnswer: "La variabilidad disminuye, haciendo que las estimaciones sean mas precisas."
+  AnswerTests: omnitest(correctVal='La variabilidad disminuye, haciendo que las estimaciones sean mas precisas.')
+  Hint: "A mayor tamaño de muestra n, menor es la dispersion de los estimadores alrededor del valor real."
+  
+- Class: text
+  Output: "Felicidades! Has completado con exito la leccion sobre Distribuciones Muestrales. En la siguiente leccion profundizaremos en el tema de: 'Distribucion muestral de la varianza'."
