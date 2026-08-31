@@ -1,0 +1,165 @@
+- Class: meta
+  Course: Practica II
+  Lesson: Distribucion muestral de la varianza
+  Author: Gael González 261768
+  Type: Standard
+  Organization: UACJ
+  Version: 2.4.5
+
+- Class: text
+  Output: "Bienvenido a la ultima leccion de este curso 'Distribucion muestral de la varianza', empecemos: "
+  
+- Class: text
+  Output: "En lecciones anteriores analizamos la media y la proporcion. Pero, para evaluar la estabilidad de un sistema (Como los tiempos de respuesta de un servidor), necesitamos estimar la variabilidad."
+  
+- Class: text
+  Output: "Primero hablaremos sobre que es 'Distribucion muestral de la varianza'. describe el comportamiento probabilistico que sigue el estadistico de la varianza muestral (S^2) cuando se extraeen repetidamente muestras aleatorias de tamaño n de una poblacion dada. (Walpole et al., 2012)"
+  
+- Class: mult_question
+  Output: "Que estadistico muestral nos permite evaluar la dispersion o variabilidad de una muestra continua?"
+  AnswerChoices: "La varianza muestral s^2.;La media muestral x_bar.;La proporcion muestral p_hat."
+  CorrectAnswer: "La varianza muestral s^2."
+  AnswerTests: omnitest(correctVal='La varianza muestral s^2.')
+  Hint: "Piensa en el indicador que calcula desviaciones cuadraticas respecto a la media."
+
+- Class: text
+  Output: "Correcto, imagina que monitoreas la latencia de un servidor en milisegundos. No basta con saber el tiempo promedio, si la varianza es muy alto, el sistema es inestable."
+
+- Class: cmd_question
+  Output: "En tu entorno cuentas con el vector 'poblacionTiempos', calcula la varianza real de toda la poblacion usando el comando var()"
+  CorrectAnswer: "var(poblacionTiempos)"
+  AnswerTests: omnitest(correctExpr='var(poblacionTiempos)')
+  Hint: "Usa la funcion var() de R directamente sobre el vector poblacionTiempos, usa ?var si no sabes como hacerlo."
+
+- Class: text
+  Output: "Memoriza el resultado devuelto por lo que acabas de hacer. Ese valor representa la varianza poblacional sigma^2 exacta."
+
+- Class: text
+  Output: "La correcion de Bessel: La formula matematica de la varianza muestral divide la suma de desviaciones entre (n-1) en lugar de entre n. En R, var() realiza esta correcion automaticamente."
+
+- Class: mult_question
+  Output: "Porque dividimos entre (n-1) y no entre n al calcular S^2 en una muestra?"
+  AnswerChoices: "Porque usar (n - 1) convierte a S^2 en un estimador insesgado de sigma^2.;Porque perdemos dos grados de libertad al calcular la mediana.;Porque (n - 1) se utiliza unicamente cuando n es mayor a 1000."
+  CorrectAnswer: "Porque usar (n - 1) convierte a S^2 en un estimador insesgado de sigma^2."
+  AnswerTests: omnitest(correctVal='Porque usar (n - 1) convierte a S^2 en un estimador insesgado de sigma^2.')
+  Hint: "El restar 1 ajusta el sesgo producido por estimar la media con los mismos datos de la muestra."
+
+- Class: cmd_question
+  Output: "Extrae una muestra aleatoria de n = 25 peticiones del vector 'poblacionTiempos' y calcula su varianza."
+  CorrectAnswer: "var(sample(poblacionTiempos, 25))"
+  AnswerTests: omnitest(correctExpr='var(sample(poblacionTiempos, 25))', strict = FALSE)
+  Hint: "Combina var() por fuera y sample() por dentro, si no recuerdas como funcionan solo pon ? al lado izquierdo de la funcion sin los ()."
+
+- Class: mult_question
+  Output: "Al observar el resultado de esa unica muestra de n = 25, coincide exactamente con la varianza poblacional real?"
+  AnswerChoices: "No, varia debido al error muestral inherente al proceso de muestreo.;Si, coincide de forma exacta porque var() aplica la correccion de Bessel.;No, porque el tamaño n = 25 es insuficiente para calcular la varianza."
+  CorrectAnswer: "No, varia debido al error muestral inherente al proceso de muestreo."
+  AnswerTests: omnitest(correctVal='No, varia debido al error muestral inherente al proceso de muestreo.')
+  Hint: "Recuerda que tomar una sola muestra genera variabilidad aleatoria alrededor del parametro."
+
+- Class: text
+  Output: "Simulacion de la distribucion muestral: Para observar la distribucion de probabilidad de s^2, debemos simular muchas muestras repetidas del mismo tamaño."
+
+- Class: cmd_question
+  Output: "Guarda en la variable 'varianzasMuestrales' la simulacion de 1000 varianzas muestrales de tamaño n = 25 usando replicate()."
+  CorrectAnswer: "varianzasMuestrales <- replicate(1000, var(sample(poblacionTiempos, 25)))"
+  AnswerTests: omnitest(correctExpr='varianzasMuestrales <- replicate(1000, var(sample(poblacionTiempos, 25)))')
+  Hint: "Usa ? al laado de la funcion sin los parentesis para ver que hacen cada funcion."
+
+- Class: cmd_question
+  Output: "Calcula el promedio de tus 1000 varianzas muestrales guardadas en 'varianzasMuestrales' usando la funcion mean()."
+  CorrectAnswer: "mean(varianzasMuestrales)"
+  AnswerTests: omnitest(correctExpr='mean(varianzasMuestrales)')
+  Hint: "Aplica la funcion mean() sobre la variable."
+
+- Class: mult_question
+  Output: "Al comparar el valor de mean(varianzasMuestrales) con var(poblacionTiempos), ¿que propiedad dela varianza se demuestra empiricamente?"
+  AnswerChoices: "Demuestra la insesgadez - la esperanza matematica de las varianzas muestrales E(s^2) es igual a sigma^2.;Demuestra la normalidad - las varianzas siguen una distribucion Gaussiana estandar.;Demuestra la inconsistencia - la media de las varianzas se aleja del valor real."
+  CorrectAnswer: "Demuestra la insesgadez - la esperanza matematica de las varianzas muestrales E(s^2) es igual a sigma^2."
+  AnswerTests: omnitest(correctVal='Demuestra la insesgadez - la esperanza matematica de las varianzas muestrales E(s^2) es igual a sigma^2.')
+  Hint: "Compara ambos valores - veras que el promedio de 1000 varianzas muestrales es casi identico al valor real."
+  
+- Class: text
+  Output: "Forma teorica de la distribucion (Chi-cuadrada): A diferencia de la media (que se distribuye Normal), la variable transformada (n - 1)*s^2 / sigma^2 sigue una distribucion Chi-cuadrada con (n - 1) grados de libertad."
+
+- Class: mult_question
+  Output: "Cuantos grados de libertad (df) tiene la distribucion Chi-cuadrada teorica para nuestras muestras de n = 25?"
+  AnswerChoices: "24 grados de libertad (n - 1).;25 grados de libertad (n).;50 grados de libertad (2n)."
+  CorrectAnswer: "24 grados de libertad (n - 1)."
+  AnswerTests: omnitest(correctVal='24 grados de libertad (n - 1).')
+  Hint: "Resta 1 al tamaño de la muestra n = 25."
+
+- Class: cmd_question
+  Output: "Genera el histograma de tus 1000 varianzas simuladas ejecutando: hist(varianzasMuestrales, main = 'Distribucion de s^2')."
+  CorrectAnswer: "hist(varianzasMuestrales, main = 'Distribucion de s^2')"
+  AnswerTests: omnitest(correctExpr='hist(varianzasMuestrales, main = \'Distribucion de s^2\')', strict = FALSE)
+  Hint: "Escribe: hist(varianzasMuestrales, main = 'Distribucion de s^2')"
+
+- Class: mult_question
+  Output: "Inspecciona la forma del grafico generado. Como se describe la geometria de esta distribucion?"
+  AnswerChoices: "Es asimetrica con sesgo positivo (cola extendida hacia la derecha).;Es simetrica en forma de campana perfecta alrededor de cero.;Es plana y rectangular uniforme."
+  CorrectAnswer: "Es asimetrica con sesgo positivo (cola extendida hacia la derecha)."
+  AnswerTests: omnitest(correctVal='Es asimetrica con sesgo positivo (cola extendida hacia la derecha).')
+  Hint: "Observa la asimetria de la distribucion Chi-cuadrada en el panel de graficos."
+
+- Class: text
+  Output: "Efecto del tamaño de muestra (Consistencia): Evaluaremos que sucede cuando incrementamos el tamaño de la muestra de n = 25 a n = 100."
+
+- Class: cmd_question
+  Output: "Simula 1000 varianzas muestrales pero ahora con n = 100. Guarda el resultado en 'varianzasGrandes' usando replicate()."
+  CorrectAnswer: "varianzasGrandes <- replicate(1000, var(sample(poblacionTiempos, 100)))"
+  AnswerTests: omnitest(correctExpr='varianzasGrandes <- replicate(1000, var(sample(poblacionTiempos, 100)))')
+  Hint: "Recuerda los ejercicios anteriores, es como esos, usa ? para saber como usar cada cosa."
+
+- Class: cmd_question
+  Output: "Calcula la desviacion estandar del primer vector de varianzas (n = 25) con la funcion: sd()."
+  CorrectAnswer: "sd(varianzasMuestrales)"
+  AnswerTests: omnitest(correctExpr='sd(varianzasMuestrales)')
+  Hint: "Usa ?sd para saber que hace y como se usa esta funcion."
+
+- Class: cmd_question
+  Output: "Ahora calcula la desviacion estandar del segundo vector con muestras grandes (n = 100) usando: varianzasGrandes."
+  CorrectAnswer: "sd(varianzasGrandes)"
+  AnswerTests: omnitest(correctExpr='sd(varianzasGrandes)')
+  Hint: "Coloca la variable dentro de la funcion."
+
+- Class: mult_question
+  Output: "Al comparar sd(varianzasMuestrales) vs sd(varianzasGrandes), ¿que ocurre con la dispersion del estimador s^2 al aumentar n?"
+  AnswerChoices: "La dispersion disminuye, demostrando que s^2 es un estimador consistente (mas preciso a mayor n).;La dispersion aumenta considerablemente haciendo el analisis inestable.;La dispersion se mantiene exactamente igual sin importar el valor de n."
+  CorrectAnswer: "La dispersion disminuye, demostrando que s^2 es un estimador consistente (mas preciso a mayor n)."
+  AnswerTests: omnitest(correctVal='La dispersion disminuye, demostrando que s^2 es un estimador consistente (mas preciso a mayor n).')
+  Hint: "Compara ambos numeros: veras que sd(varianzasGrandes) es sustancialmente menor."
+
+- Class: text
+  Output: "Acticidad de aplicacion practica: Imagina que el SLA (Acuerdo de Nivel de Servicio) de tu servidor establece que la varianza maxima tolerable en produccion es de 200 ms^2."
+
+- Class: cmd_question
+  Output: "Simula una muestra de n = 30 peticiones del servidor almacenadas en 'poblacionTiempos' y guarda su varianza muestral en 's2_caso'."
+  CorrectAnswer: "s2_caso <- var(sample(poblacionTiempos, 30))"
+  AnswerTests: omnitest(correctExpr='s2_caso <- var(sample(poblacionTiempos, 30))')
+  Hint: "Usa las funciones var() y sample() una dentro de la otra, descubre cual."
+
+- Class: cmd_question
+  Output: "Crea una variable llamada 'chi_obs' y calcula el estadistico dividiendo el producto de (n - 1) y 's2_caso' entre 200."
+  CorrectAnswer: "chi_obs <- (29 * s2_caso) / 200"
+  AnswerTests: omnitest(correctExpr='chi_obs <- (29 * s2_caso) / 200')
+  Hint: "Traduce la formula matematica a una operacion aritmetica directa."
+
+- Class: text
+  Output: "Ahora usaremos la funcion qchisq(), es la funcion que calcula los cuantiles (O valores criticos) de una distribucion Chi-cuadrada."
+
+- Class: cmd_question
+  Output: "Calcula el valor critico Chi-cuadrado al 95% de confianza con 29 grados de libertad usando: qchisq(0.95, df = 29)."
+  CorrectAnswer: "qchisq(0.95, df = 29)"
+  AnswerTests: omnitest(correctExpr='qchisq(0.95, df = 29)')
+  Hint: "Escribe qchisq() en la consola, usa el porcentaje en formato decimal, y coloca df = ."
+
+- Class: mult_question
+  Output: "Si el valor de 'chi_obs' resulta menor que qchisq(0.95, df = 29), Que diagnostico das sobre el desempeño del servidor?"
+  AnswerChoices: "El servidor cumple con el SLA de variabilidad al 95% de confianza.;El servidor debe ser reiniciado inmediatamente por exceso de sesgo.;El tamaño de muestra n = 30 invalida el modelo Chi-cuadrado."
+  CorrectAnswer: "El servidor cumple con el SLA de variabilidad al 95% de confianza."
+  AnswerTests: omnitest(correctVal='El servidor cumple con el SLA de variabilidad al 95% de confianza.')
+  Hint: "Si el valor observado no entra en la region critica superior al 95%, no sobrepasa la varianza maxima tolerable."
+
+- Class: text
+  Output: "Bien hecho, con esto terminamos la leccion 9 y con eso la ultima leccion de todo este curso. Ahora lo ultimo que te queda es hacer la actividad integradora con todo lo que has visto en las anteriores lecciones. Suerte."
