@@ -1,0 +1,82 @@
+- Class: meta
+  Course: Unidad_II_Muestreo
+  Lesson: Muestreo_Conglomerado
+  Author: Sergio Solís
+  Type: Standard
+  Organization: Universidad Autonoma De Ciudad Juarez
+  Version: 2.4.5
+  
+- Class: text
+  Output: "En esta leccion comprenderas lo que es el muestreo por conglomeración,
+  además de saber la diferencia con el muestreo estratificado"
+  
+- Class: text
+  Output: "A diferencia con el muestreo estratificado, en el que la poblacion se 
+  separaba en grupos homogéneos y de estos grupos se tomaban algunas muestras aleatorias
+  para crear los estratos."                                                                                                                         
+  
+- Class: text
+  Output: "En el muestreo por conglomeracion, se divide una poblacion en grupos
+  más pequeños(conocidos como conglomerados) estos grupos deben de ser lo mas diversos
+  posibles, de esta forma se asegura que las caracteristicas potenciales de la poblacion
+  esten representadas en cada grupo. Luego, se seleccionan aleatoriamente
+  ALGUNOS de estos grupos y se forma una muestra con todos los elementos de estos
+  grupos"
+  
+- Class: text
+  Output: "Imagina que quieres evaluar el rendimiento de una red de bases de datos 
+  distribuidas. Tienes 50 servidores y cada uno procesa miles de transacciones. 
+  En lugar de tomar algunas transacciones de los 50 servidores (lo cual seria muy costoso y tardado),
+  seleccionas 5 servidores completos al azar y analizas TODAS las transacciones 
+  dentro de ellos. Aquí, cada servidor funciona como un conglomerado."
+
+- Class: mult_question
+  Output: "En el ejemplo de los servidores, ¿por qué este método es Muestreo por Conglomerados y NO Muestreo Estratificado?"
+  AnswerChoices: "Porque seleccionamos algunos servidores completos y evaluamos todo en su interior.; Porque tomamos unas cuantas transacciones de cada uno de los 50 servidores.; Porque seleccionamos las transacciones más rápidas."
+  CorrectAnswer: "Porque seleccionamos algunos servidores completos y evaluamos todo en su interior."
+  AnswerTests: omnitest(correctVal= 'Porque seleccionamos algunos servidores completos y evaluamos todo en su interior.')
+  Hint: "Recuerda la regla de oro de los conglomerados: seleccionamos TODOS los elementos de ALGUNOS grupos."
+  
+- Class: text
+  Output: "Imagina que tienes una base de datos llamada 'bd_transacciones' con 50 
+  registros. Estos registros provienen de 5 servidores distintos 
+  (10 transacciones por servidor: Server_A, Server_B, Server_C, Server_D y Server_E)."
+  
+- Class: cmd_question
+  Output: "El primer paso del muestreo por conglomerados es seleccionar los grupos 
+  al azar. Usa la función sample() para elegir 2 servidores de esta lista:
+  c('Server_A', 'Server_B', 'Server_C', 'Server_D', 'Server_E')."
+  CorrectAnswer: "sample(c('Server_A', 'Server_B', 'Server_C', 'Server_D', 'Server_E'), 2)"
+  AnswerTests: omnitest(correctExpr="sample(c('Server_A', 'Server_B', 'Server_C', 'Server_D', 'Server_E'), 2)")
+  Hint: "Usa la funcion sample en un vector que contenga el nombre de los servidores
+  e indica cuantos servidores eligiras de estos 5 en el segundo argumento."
+  
+- Class: text
+  Output: "Al correr ese comando elegiste 2 servidores al azar de los 5 servidores.
+  Supongamos que la suerte decidió que evaluaremos los servidores 'Server_A' y 'Server_C'. 
+  La regla del conglomerado dice que ahora debemos extraer TODAS las transacciones 
+  de esos dos servidores elegidos para formar nuestra muestra."
+  
+- Class: cmd_question
+  Output: "Utiliza subset() y el operador lógico OR para aislar estas transacciones.
+  Crea una variable llamada 'muestra_final' que contenga los datos donde el servidor 
+  sea igual a 'Server_A' o igual a 'Server_C'."
+  CorrectAnswer: "muestra_final <- subset(bd_transacciones, servidor == 'Server_A' | servidor == 'Server_C')"
+  AnswerTests: expr_creates_var('muestra_final'); omnitest(correctExpr="muestra_final <- subset(bd_transacciones, servidor == 'Server_A' | servidor == 'Server_C')")
+  Hint: "El operador OR es | Debes pasar como argumentos la base de datos de los servidores
+  y los servidores que sean identicos a los servidores A y B"
+  
+- Class: text
+  Output: "Bien hecho!!. Con esto acabas de crear tu muestra por conglomeracion."
+  
+- Class: mult_question
+  Output: "Si revisas tu 'muestra_final' que acabas de extraer, ¿cuántas transacciones tendrías en total?"
+  AnswerChoices: "Solo 2 transacciones.;20 transacciones (las 10 de Server_A más las 10 de Server_C).; 50 transacciones."
+  CorrectAnswer: "20 transacciones (las 10 de Server_A más las 10 de Server_C)."
+  AnswerTests: omnitest(correctVal= '20 transacciones (las 10 de Server_A más las 10 de Server_C).')
+  Hint: "Cada servidor tiene 10 transacciones y elegiste 2 servidores completos"
+  
+- Class: text
+  Output: "Con esto haz llegado al final de la leccion. Primero tomaste al azar 
+  algunos grupos de la población(Conglomerados), y despues uniste todos sus elementos
+  en una sola muestra."

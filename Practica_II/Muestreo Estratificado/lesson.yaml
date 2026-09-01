@@ -1,0 +1,117 @@
+- Class: meta
+  Course: Unidad_II_Muestreo
+  Lesson: Muestreo_Estratificado
+  Author: Sergio Solis
+  Type: Standard
+  Organization: Universidad Autonoma De Ciudad Juarez
+  Version: 2.4.5
+
+- Class: text
+  Output: "Bienvenido!! En esta lección aprenderas lo que es el muestreo estratificado y 
+  como utilízarlo"
+
+- Class: text
+  Output: "El Muestreo estratificado consiste en tomar una poblacion y separarla
+  en grupos homogéneos llamados estrato. Luego, de cada estrato se tomará una muestra
+  aleatoria simple. Las muestras resultantes de cada estrato se combinan en una sola
+  muestra.(Thomas, 2023)"
+  
+- Class: text
+  Output: "El muestreo estratificado es la mejor opción entre los métodos de muestreo 
+  probabilístico cuando se cree que los subgrupos tendrán diferentes valores medios 
+  para la(s) variable(s) que está estudiando(Muguira, 2023). Por ejemplo, si estás midiendo el 
+  tiempo de carga de un software, tiene sentido dividir a los usuarios en estratos 
+  por tipo de dispositivo, porque esperas que sus tiempos medios de carga sean muy diferentes"
+  
+
+- Class: mult_question
+  Output: "Analiza las siguientes situaciones, y selecciona cual de ellas crees 
+  que representa un muestreo estratificado"
+  AnswerChoices: "Dividir a los usuarios de un sistema en 'basicos', 'pro' y 'Admin',
+  y seleccionar una muestra aleatoria de cada grupo.; Seleccionar 3 servidores al azaar
+  encuestar a todo en ellos.; Seleccionar a los primeros 50 usuarios que inicien sesion hoy."
+  CorrectAnswer: "Dividir a los usuarios de un sistema en 'basicos', 'pro' y 'Admin', 
+  y seleccionar una muestra aleatoria de cada grupo."
+  AnswerTests: omnitest(correctVal= "Dividir a los usuarios de un sistema en 'basicos', 'pro' y 'Admin', y seleccionar una muestra aleatoria de cada grupo.")
+  Hint: "Recuerda que en el muestreo estratificado, primero se divide la poblacion 
+  en grupos y de cada grupo se sacan muestras aleatorias."
+  
+- Class: text
+  Output: "!Corecto! hay una diferencia entre dos de estas opciones que es 
+  fundamental reconocer, ya que mas adelante veras el muestreo Conglomerado.
+  En el muestreo estratificado tomamos a ALGUNOS usuarios de todos los grupos(estratos).
+  Por otro lado, la opcion de 'seleccionar 3 servidores al azar' 
+  es un muestreo Conglomerado, donde seleccionamos todos los elementos de ALGUNOS grupos."
+  
+- Class: text 
+  Output: "A continuacion realizaremos un ejercicio. Imagina que estas trabajando
+  en un sistema y cargamos una base de datos llamada bd_usuarios. Esta contiene 
+  miles de registros con el tipo de suscripcion y el tipo de dispositivo desde 
+  el que se conectan los usuarios"
+  
+- Class: text
+  Output: "Antes de extraer una muestra estratificada, necesitas saber que porcentaje
+  de la población total representa cada estrato. Así sabremos cuantos usuarios de
+  cada tipo debemos incluir en nuestra muestra para que sea verdaderamente representativa"
+  
+- Class: cmd_question
+  Output: "Utiliza las funciones prop.table() y table() juntas para calcular la 
+  proporción de cada tipo de suscripción en la base de datos. Escribe el comando 
+  aplicado a la columna suscripcion de bd_usuarios."
+  CorrectAnswer: "prop.table(table(bd_usuarios$suscripcion))"
+  AnswerTests: omnitest(correctExpr="prop.table(table(bd_usuarios$suscripcion))")
+  Hint: "Para seleccionar el elemento suscripcion de bd_usarios primero se escribe
+  la clase 'bd_usuarios' y se une con un '$' suscripcion"
+  
+- Class: text
+  Output: "Bien hecho, como notaras te dio el valor de proporcion que representa 
+  cada tipo de suscripcion, si quieres el valor en porcentaje solo tienes que 
+  multiplicarlos por 100. En este caso, los admin son el 5.1%, los básicos son el 71.3% 
+  y los pro son el 23.6%"
+  
+- Class: text
+  Output: "Sabiendo que los usuarios 'Pro' representan una parte importante de tu 
+  de datos, vamos a seleccionar una muestra únicamente de ese estrato para enviarles 
+  una encuesta sobre su experiencia."
+  
+- Class: cmd_question
+  Output: "Primero, necesitamos separar a este grupo del resto. Utiliza la función 
+  subset() para crear un nuevo objeto llamado 'usuarios_pro' que contenga solo a 
+  los usuarios cuya 'suscripcion' sea exactamente igual a 'Pro'. Si necesitas 
+  saber los parametros que necesita la funcion, recuerda que puedes revisar la 
+  documentacion de la funcion"
+  CorrectAnswer: "usuarios_pro <- subset(bd_usuarios, suscripcion == 'Pro')"
+  AnswerTests: expr_creates_var('usuarios_pro'); omnitest(correctExpr="usuarios_pro <- subset(bd_usuarios, suscripcion == 'Pro')")
+  Hint: "Los parametros para la funcion subset() son: la base de datos y la condicion suscripcion == 'Pro'. Todo esto guardado en una nueva variable"
+  
+- Class: text
+  Output: "Bien. Con esto haz creado un estrato con los usuarios que tienen una 
+  suscripcion pro"
+  
+- Class: cmd_question
+  Output: "Ahora que tu estrato esta aislado en 'usuarios_pro', extrae
+  una muestra aleatoria de 15 de estos usuarios usa la funcion sample() sobre la 
+  columna 'id' del objeto que acabas de crear y guardala en una variable llamada 
+  'muestra_pro"
+  CorrectAnswer: "muestra_pro <- sample(usuarios_pro$id, 15)"
+  AnswerTests: expr_creates_var('muestra_pro'); omnitest(correctExpr="muestra_pro <- sample(usuarios_pro$id, 15)")
+  Hint: "Debes guardar el resultado de samplear(mezclar) tu objeto 'usuarios_pro'
+  con la columna id e indicar el tamaño que es 15"
+  
+- Class: text
+  Output: "¡Excelente! Has aislado exitosamente un estrato y seleccionado una 
+  muestra aleatoria dentro de él. En un proyecto real, repetirías este mismo 
+  proceso para los usuarios 'Básico' y 'Admin'
+  ¡Con esto terminamos el Muestreo Estratificado!"
+  
+  
+#                               Bibliografia
+#===========================================================================================
+
+#   Thomas, L. (2023, June 22). Stratified Sampling | Definition, Guide & Examples. Scribbr. 
+#        from https://www.scribbr.com/methodology/stratified-sampling/
+
+#   Muguira, A. (2023, 23 junio). Muestreo estratificado, un tipo de muestreo de probabilidad. QuestionPro. 
+#       https://www.questionpro.com/blog/es/muestreo-estratificado/
+
+
