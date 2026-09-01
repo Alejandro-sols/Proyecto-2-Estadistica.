@@ -42,7 +42,7 @@
   la necesidad de procesos que consumen mucho tiempo.(Stewart, 2025)"
   
 - Class: text
-  Output: "Volvamos al ejemplo del QR. Imagina que el sistema guardo todas las entradas
+  Output: "Volvamos al ejemplo del QR. Imagina que el sistema guardó 1000 entradas
   en una base de datos llamada 'respuestas' pero necesitas entregar los datos lo mas pronto posible,
   así que decides analizar solo las primeras 50 respuestas que se registraron"
   
@@ -55,7 +55,7 @@
   Hint: "Los argumentos que necesitas para head() son la base de datos y cuantos registros quieres extraer."
   
 - Class: text
-  Output: "Bien!. Al tomar las primeras 50 respuestas con head(), haz tomado los
+  Output: "Bien!. Al tomar las primeras 50 respuestas con head(), has tomado los
   datos mas inmediatos y accesibles, justo como se realiza en un muestreo por conveniencia."
   
 - Class: text
@@ -88,7 +88,7 @@
   en la base de datos 'respuestas' y solicitando el registro 'calificacion_producto'."
   CorrectAnswer: "mean(respuestas$calificacion_producto)"
   AnswerTests: omnitest(correctExpr="mean(respuestas$calificacion_producto)")
-  Hint: "No olvides utilizar '$' para solicitar la calificacion del producto de la base de datos 'respeustas'. "
+  Hint: "No olvides utilizar '$' para solicitar la calificacion del producto de la base de datos 'respuestas'. "
   
 - Class: text
   Output: "Vaya!, El promedio real de la poblacion completa es de 2.117, mas bajo 
@@ -98,7 +98,7 @@
 - Class: mult_question
   Output: "Viendo estos resultados, ¿por qué crees que los primeros 50 en contestar 
   el QR le dieron una calificación tan alta en comparación con el resto?"
-  AnswerChoices: "Porque el poste con el QR podria haber estado pegado afuera de una tienda exclusiva para fans del producto, atrayendo solo a gente entusiasta.; Porque R se equivocó al calcular el promedio.; Porque los primeros 30 siempre tienen la razón."
+  AnswerChoices: "Porque el poste con el QR podria haber estado pegado afuera de una tienda exclusiva para fans del producto, atrayendo solo a gente entusiasta.; Porque R se equivocó al calcular el promedio.; Porque los primeros 50 siempre tienen la razón."
   CorrectAnswer: "Porque el poste con el QR podria haber estado pegado afuera de una tienda exclusiva para fans del producto, atrayendo solo a gente entusiasta."
   AnswerTests: omnitest(correctVal= 'Porque el poste con el QR podria haber estado pegado afuera de una tienda exclusiva para fans del producto, atrayendo solo a gente entusiasta.')
   Hint: "Piensa en el contexto del lugar. Al buscar la conveniencia para obtener respuestas mas rápido podria alterar la imparcialidad de las respuestas"
