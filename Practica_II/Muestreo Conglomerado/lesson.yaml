@@ -21,7 +21,7 @@
   posibles, de esta forma se asegura que las caracteristicas potenciales de la poblacion
   esten representadas en cada grupo. Luego, se seleccionan aleatoriamente
   ALGUNOS de estos grupos y se forma una muestra con todos los elementos de estos
-  grupos"
+  grupos(Thomas, 2023)"
   
 - Class: text
   Output: "Imagina que quieres evaluar el rendimiento de una red de bases de datos 
@@ -80,3 +80,13 @@
   Output: "Con esto haz llegado al final de la leccion. Primero tomaste al azar 
   algunos grupos de la población(Conglomerados), y despues uniste todos sus elementos
   en una sola muestra."
+  
+  
+#========================BIBLIOGRAFIA===========================================
+
+#Thomas, L. (2023, June 22). Cluster Sampling | A Simple Step-by-Step Guide with Examples. Scribbr. 
+#    from https://www.scribbr.com/methodology/cluster-sampling/
+
+
+#===============================================================================
+
