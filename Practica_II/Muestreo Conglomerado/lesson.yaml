@@ -64,7 +64,7 @@
   CorrectAnswer: "muestra_final <- subset(bd_transacciones, servidor == 'Server_A' | servidor == 'Server_C')"
   AnswerTests: expr_creates_var('muestra_final'); omnitest(correctExpr="muestra_final <- subset(bd_transacciones, servidor == 'Server_A' | servidor == 'Server_C')")
   Hint: "El operador OR es | Debes pasar como argumentos la base de datos de los servidores
-  y los servidores que sean identicos a los servidores A y B"
+  y los servidores que sean identicos a los servidores A y C"
   
 - Class: text
   Output: "Bien hecho!!. Con esto acabas de crear tu muestra por conglomeracion."
