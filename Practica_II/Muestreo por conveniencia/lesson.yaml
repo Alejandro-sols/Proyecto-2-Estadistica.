@@ -1,0 +1,118 @@
+- Class: meta
+  Course: Unidad_II_Muestreo
+  Lesson: Muestreo por conveniencia
+  Author: Sergio Solis
+  Type: Standard
+  Organization: Universidad Autonoma De Ciudad Juarez
+  Version: 2.4.5
+  
+- Class: text
+  Output: "En esta lección nos adentraremos en el muestreo por conveniencia, 
+  aprenderas cómo se utiliza, sus ventajas y sus limitaciones, "
+  
+- Class: text
+  Output: "El muestreo por conveniencia es una técnica de muestreo no probabílistico.
+  En esta los elementos se seleccionan conforme a su disponibilidad o proximidad
+  al investigador. Es decir, los elementos se escogen simplemente porque son accesibles
+  o faciles de encontrar.(Stewart, 2025)"
+  
+- Class: text
+  Output: "Imagina que quieres realizar una encuesta sobre que tan bueno es un producto.
+  Para ello pegas un código QR en un poste y estas a la espera de que alguien conteste
+  la encuesta"
+  
+- Class: mult_question
+  Output: "Lograste conseguir un total de 30 respuestas en 10 minutos(ahorrandote mucho tiempo). 
+  Sin embargo, existe un riesgo o sesgo principal al utilizar este metódo.¿Cuál crees que sea este riesgo?."
+  AnswerChoices: "Las respuestas pueden no representar a todas las personas que utilizan el producto; Es más dificil analizar los datos.; El muestreo por conveniencia siempre da datos matematicamente incorrectos."
+  CorrectAnswer: "Las respuestas pueden no representar a todas las personas que utilizan el producto"
+  AnswerTests: omnitest(correctVal= 'Las respuestas pueden no representar a todas las personas que utilizan el producto')
+  Hint: "Piensa que pasaría si alguien que nunca ha utilizado el producto contestara la encuesta pero tu no lo sabes."
+  
+- Class: text
+  Output: "Correcto!. Los estudios con datos de muestreo por conveniencia aceptan 
+  un mayor nivel de sesgo debido al proceso de selección no aleatoria. Sin embargo, 
+  se debe tener en mente que los resultados obtenidos pueden no reflejar con exactitud
+  la población más amplia, lo que limita el alcance de la inferencia(Stewart, 2025)"
+  
+- Class: text 
+  Output: "Aún asi, utilizar el muestreo por conveniencia aporta algunas ventajas como:
+  \n\n1.Su rentabilidad, ya que selecciona participantes facilmente disponibles y reduce costos de captación.
+  \n\n2.Eficiencia, permite a los investigadores recopilar datos rápidamente, ya que elimina
+  la necesidad de procesos que consumen mucho tiempo.(Stewart, 2025)"
+  
+- Class: text
+  Output: "Volvamos al ejemplo del QR. Imagina que el sistema guardo todas las entradas
+  en una base de datos llamada 'respuestas' pero necesitas entregar los datos lo mas pronto posible,
+  así que decides analizar solo las primeras 50 respuestas que se registraron"
+  
+- Class: cmd_question
+  Output: "En R, la mejor forma de extraer los primeros elementos de un conjunto
+  de datos es con la funcion head(). Crea una nueva variable llamada 'muestraQR'
+  y asignale el resultado de aplicar head() a 'respuestas', pidiendo 50 registros."
+  CorrectAnswer: "muestraQR <- head(respuestas, 50)"
+  AnswerTests: expr_creates_var('muestraQR'); omnitest(correctExpr="muestraQR <- head(respuestas, 50)")
+  Hint: "Los argumentos que necesitas para head() son la base de datos y cuantos registros quieres extraer."
+  
+- Class: text
+  Output: "Bien!. Al tomar las primeras 50 respuestas con head(), haz tomado los
+  datos mas inmediatos y accesibles, justo como se realiza en un muestreo por conveniencia."
+  
+- Class: text
+  Output: "Ahora que tienes tu muestra rápida de 50 encuestas guardada en 'muestraQR', 
+  vamos a analizar los resultados para ver qué opinan estos primeros usuarios sobre tu producto."
+  
+- Class: cmd_question
+  Output: "Utiliza la función mean() para calcular el promedio de las calificaciones. 
+  Recuerda usar el símbolo $ para extraer la columna 'calificacion_producto' de tu variable 'muestraQR'."
+  CorrectAnswer: "mean(muestraQR$calificacion_producto)"
+  AnswerTests: omnitest(correctExpr="mean(muestraQR$calificacion_producto)")
+  Hint: "Debes usar la funcion mean() con tu variable 'muestraQR' y pidiendo el registro 'calificacion_producto'."
+  
+- Class: text
+  Output: "Genial!. El producto recibio muy buenas criticas."
+  
+- Class: mult_question
+  Output: "¿Crees que estos resultados representen bien a una poblacion, o crees 
+  que los resultados esten sesgados?"
+  AnswerChoices: "Los resultados representan a una población y sirven para inferir una conclusión; Los resultados pueden tener un sesgo por la hora o lugar en que se realizaron."
+  CorrectAnswer: "Los resultados pueden tener un sesgo por la hora o lugar en que se realizaron."
+  AnswerTests: omnitest(correctVal= 'Los resultados pueden tener un sesgo por la hora o lugar en que se realizaron.')
+  Hint: "Al tener un resultado tan alto en una encuesta es razonable dudar de los datos"
+  
+- Class: text
+  Output: "Veamos que pasa si sacamos el promedio de los 1000 registros en la base de datos"
+  
+- Class: cmd_question
+  Output: "Usa de nuevo la función mean(), pero esta vez aplícala a toda la población original. 
+  en la base de datos 'respuestas' y solicitando el registro 'calificacion_producto'."
+  CorrectAnswer: "mean(respuestas$calificacion_producto)"
+  AnswerTests: omnitest(correctExpr="mean(respuestas$calificacion_producto)")
+  Hint: "No olvides utilizar '$' para solicitar la calificacion del producto de la base de datos 'respeustas'. "
+  
+- Class: text
+  Output: "Vaya!, El promedio real de la poblacion completa es de 2.117, mas bajo 
+  que el promedio que habias calculado de 4.54. Esta diferencia de promedios, es
+  la evidencia de que un sesgo se puede dar"
+  
+- Class: mult_question
+  Output: "Viendo estos resultados, ¿por qué crees que los primeros 50 en contestar 
+  el QR le dieron una calificación tan alta en comparación con el resto?"
+  AnswerChoices: "Porque el poste con el QR podria haber estado pegado afuera de una tienda exclusiva para fans del producto, atrayendo solo a gente entusiasta.; Porque R se equivocó al calcular el promedio.; Porque los primeros 30 siempre tienen la razón."
+  CorrectAnswer: "Porque el poste con el QR podria haber estado pegado afuera de una tienda exclusiva para fans del producto, atrayendo solo a gente entusiasta."
+  AnswerTests: omnitest(correctVal= 'Porque el poste con el QR podria haber estado pegado afuera de una tienda exclusiva para fans del producto, atrayendo solo a gente entusiasta.')
+  Hint: "Piensa en el contexto del lugar. Al buscar la conveniencia para obtener respuestas mas rápido podria alterar la imparcialidad de las respuestas"
+  
+- Class: text
+  Output: "Así es!. Has demostrado como un muestreo por conveniencia puede arrojar
+  resultados completamente sesgados si no se tiene cuidado. Hemos llegado al final
+  de esta leccion"
+  
+  
+#==================================Bibliografía=================================
+
+#   Stewart, L. (2025, 11 febrero). Método de muestreo por conveniencia en la investigación. 
+#       ATLAS.ti. https://atlasti.com/es/research-hub/muestreo-de-conveniencia#ventajas-del-muestreo-de-conveniencia
+  
+  
+  
