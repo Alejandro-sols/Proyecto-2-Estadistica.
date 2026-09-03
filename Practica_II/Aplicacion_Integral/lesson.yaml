@@ -1,0 +1,172 @@
+- Class: meta
+  Course: Practica_II
+  Lesson: Aplicacion_Integral
+  Author: Gael-Sergio-Emanuel
+  Type: Standard
+  Organization: UACj
+  Version: 2.4.5
+
+- Class: text
+  Output: "Bienvenido a la Actividad Integradora del curso Practica II."
+
+- Class: text
+  Output: "En esta leccion aplicaremos todos los conceptos que has visto en este
+  curso en un caso de rendimiento de servidores."
+
+- Class: text
+  Output: "Analizaremos el tiempo de respuesta y la tasa de peticiones exitosas 
+  registradas en los logs."
+
+- Class: mult_question
+  Output: "Cuentas con el dataset 'logs_servidor' de 5000 peticiones. ¿Cual es 
+  la poblacion de estudio?"
+  AnswerChoices: "El total de las 5000 peticiones registradas en los logs.;Las primeras 50 peticiones del dia.;Unicamente las peticiones que mostraron error."
+  CorrectAnswer: "El total de las 5000 peticiones registradas en los logs."
+  AnswerTests: omnitest(correctVal='El total de las 5000 peticiones registradas en los logs.')
+  Hint: "La poblacion es sobre todos los elementos de interes en el estudio."
+
+- Class: text
+  Output: "Definir claramente la poblacion es el primer paso antes de realizar 
+  cualquier procedimiento de muestreo."
+
+- Class: mult_question
+  Output: "Si queremos estimar la estabilidad del servidor. Que informacion o estadisticos debemos obtener?"
+  AnswerChoices: "La media, la proporcion de exito y la varianza muestral.;Unicamente el valor maximo del tiempo.;El numero total de usuarios conectados."
+  CorrectAnswer: "La media, la proporcion de exito y la varianza muestral."
+  AnswerTests: omnitest(correctVal='La media, la proporcion de exito y la varianza muestral.')
+  Hint: "Requieres estimar promedios, porcentajes de exito y dispersion de datos."
+
+- Class: mult_question
+  Output: "Si seleccionamos peticiones al azar asegurando que todas tengan la misma probabilidad. Que metodo es?"
+  AnswerChoices: "Muestreo aleatorio simple.;Muestreo por conveniencia.;Muestreo sistematico."
+  CorrectAnswer: "Muestreo aleatorio simple."
+  AnswerTests: omnitest(correctVal='Muestreo aleatorio simple.')
+  Hint: "En este metodo todos los elementos tienen la misma probabilidad de seleccion."
+
+- Class: mult_question
+  Output: "Cual de los siguientes metodos divide la poblacion en subgrupos o 
+  estratos homogéneos antes de muestrear?"
+  AnswerChoices: "Muestreo estratificado.;Muestreo por conglomerados.;Muestreo por conveniencia."
+  CorrectAnswer: "Muestreo estratificado."
+  AnswerTests: omnitest(correctVal='Muestreo estratificado.')
+  Hint: "El muestreo estratificado asegura la representacion de cada subgrupo en la muestra."
+
+- Class: mult_question
+  Output: "Que metodo selecciona un punto de partida aleatorio y luego elige cada k-esimo elemento del listado?"
+  AnswerChoices: "Muestreo sistematico.;Muestreo por conglomerados.;Muestreo aleatorio simple."
+  CorrectAnswer: "Muestreo sistematico."
+  AnswerTests: omnitest(correctVal='Muestreo sistematico.')
+  Hint: "El muestreo sistematico aplica un intervalo regular k para la seleccion."
+
+- Class: mult_question
+  Output: "Cual es la diferencia principal entre el muestreo por conglomerados 
+  y el muestreo por conveniencia?"
+  AnswerChoices: "Conglomerados divide en grupos naturales no homogeneos y conveniencia es no probabilistico.;Ambos son metodos de seleccion no probabilistica sin aleatoriedad.;Conglomerados selecciona solo a los elementos mas faciles de acceder."
+  CorrectAnswer: "Conglomerados divide en grupos naturales no homogeneos y conveniencia es no probabilistico."
+  AnswerTests: omnitest(correctVal='Conglomerados divide en grupos naturales no homogeneos y conveniencia es no probabilistico.')
+  Hint: "El muestreo por conveniencia no utiliza seleccion aleatoria y carece de rigor probabilistico."
+
+- Class: mult_question
+  Output: "Cual es la justificacion adecuada para elegir el muestreo aleatorio simple en este analisis de logs?"
+  AnswerChoices: "Garantiza equiprobabilidad de seleccion y evita el sesgo en las estimaciones del servidor.;Es el unico metodo que no requiere instalar paquetes adicionales en R.;Permite seleccionar unicamente las peticiones generadas en horario laboral."
+  CorrectAnswer: "Garantiza equiprobabilidad de seleccion y evita el sesgo en las estimaciones del servidor."
+  AnswerTests: omnitest(correctVal='Garantiza equiprobabilidad de seleccion y evita el sesgo en las estimaciones del servidor.')
+  Hint: "La justificacion se basa en la equiprobabilidad y en evitar sesgos en la muestra."
+
+- Class: cmd_question
+  Output: "Toma una muestra aleatoria de n = 30 tiempos del vector 'poblacion_tiempos' y guardala en 'muestra_tiempos'."
+  CorrectAnswer: "muestra_tiempos <- sample(poblacion_tiempos, 30)"
+  AnswerTests: omnitest(correctExpr='muestra_tiempos <- sample(poblacion_tiempos, 30)')
+  Hint: "Usa la funcion sample() mientras le asignas el resultado a 'muestra_tiempos'."
+
+- Class: text
+  Output: "Ahora calcularemos los estadisticos basicos sobre los datos de la muestra generada."
+
+- Class: cmd_question
+  Output: "Calcula el promedio de tu muestra guardada en 'muestra_tiempos'."
+  CorrectAnswer: "mean(muestra_tiempos)"
+  AnswerTests: omnitest(correctExpr='mean(muestra_tiempos)')
+  Hint: "Usa la funcion mean()."
+
+- Class: cmd_question
+  Output: "Calcula la varianza muestral de tu muestra guardada en 'muestra_tiempos' usando var()."
+  CorrectAnswer: "var(muestra_tiempos)"
+  AnswerTests: omnitest(correctExpr='var(muestra_tiempos)')
+  Hint: "Usa la funcion var()."
+
+- Class: text
+  Output: "A continuacion, repetiremos el proceso generando multiples muestras para construir las distribuciones."
+
+- Class: cmd_question
+  Output: "Simula la distribucion de 1000 medias muestrales de n = 30. Y guarda el resultado en 'simMedias'."
+  CorrectAnswer: "simMedias <- replicate(1000, mean(sample(poblacion_tiempos, 30)))"
+  AnswerTests: omnitest(correctExpr='simMedias <- replicate(1000, mean(sample(poblacion_tiempos, 30)))')
+  Hint: "Escribe: simMedias <- replicate(1000, mean(sample(poblacion_tiempos, 30)))"
+
+- Class: cmd_question
+  Output: "Simula 1000 proporciones muestrales de exito de tamaño n = 30 en 'poblacion_exitos'. Guarda en 'simProporciones'."
+  CorrectAnswer: "simProporciones <- replicate(1000, mean(sample(poblacion_exitos, 30)))"
+  AnswerTests: omnitest(correctExpr='simProporciones <- replicate(1000, mean(sample(poblacion_exitos, 30)))')
+  Hint: "Usa: simProporciones <- replicate(1000, mean(sample(poblacion_exitos, 30)))"
+
+- Class: cmd_question
+  Output: "Ahora simula 1000 varianzas muestrales de tamaño n = 30 y guardalas en la variable 'simVarianzas'."
+  CorrectAnswer: "simVarianzas <- replicate(1000, var(sample(poblacion_tiempos, 30)))"
+  AnswerTests: omnitest(correctExpr='simVarianzas <- replicate(1000, var(sample(poblacion_tiempos, 30)))')
+  Hint: "Usa: simVarianzas <- replicate(1000, var(sample(poblacion_tiempos, 30)))"
+
+- Class: text
+  Output: "Procederemos a analizar la forma grafica de la distribucion muestral de la varianza."
+
+- Class: cmd_question
+  Output: "Genera el histograma de tus 1000 varianzas simuladas ejecutando la funcion hist()."
+  CorrectAnswer: "hist(simVarianzas)"
+  AnswerTests: omnitest(correctExpr='hist(simVarianzas)')
+  Hint: "Usa la funcion hist()."
+
+- Class: mult_question
+  Output: "Que forma geometrica presenta la distribucion muestral de las varianzas simuladas?"
+  AnswerChoices: "Es asimetrica con sesgo positivo (Chi-cuadrada).;Es completamente plana y uniforme.;Es una campana simetrica perfecta centrada en cero."
+  CorrectAnswer: "Es asimetrica con sesgo positivo (Chi-cuadrada)."
+  AnswerTests: omnitest(correctVal='Es asimetrica con sesgo positivo (Chi-cuadrada).')
+  Hint: "La distribucion de la varianza muestral tiene sesgo hacia la derecha."
+
+- Class: cmd_question
+  Output: "Genera un histograma de 'simMedias' para observar la forma de la distribucion de la media."
+  CorrectAnswer: "hist(simMedias)"
+  AnswerTests: omnitest(correctExpr='hist(simMedias)')
+  Hint: "Es lo mismo que antes pero con otra variable, usa hist()."
+
+- Class: mult_question
+  Output: "Que forma toma la distribucion de 'simMedias' segun el Teorema del Limite Central?"
+  AnswerChoices: "Forma de campana simetrica (Normal).;Forma asimetrica sesgada a la derecha.;Forma completamente uniforme."
+  CorrectAnswer: "Forma de campana simetrica (Normal)."
+  AnswerTests: omnitest(correctVal='Forma de campana simetrica (Normal).')
+  Hint: "Con muestras de tamaño n = 30, la distribucion de la media muestral se aproxima a una Normal."
+
+- Class: text
+  Output: "Finalmente, interpretaremos los resultados obtenidos mediante el proceso de simulacion."
+
+- Class: mult_question
+  Output: "Al comparar el promedio de 'simMedias' con la media real, ¿que concluyes sobre la estimacion?"
+  AnswerChoices: "La media muestral es un estimador insesgado del parametro poblacional.;El tamaño de muestra invalida la estimacion.;Existe un sesgo sistematico insuperable."
+  CorrectAnswer: "La media muestral es un estimador insesgado del parametro poblacional."
+  AnswerTests: omnitest(correctVal='La media muestral es un estimador insesgado del parametro poblacional.')
+  Hint: "El promedio de las medias muestrales se aproxima al valor verdadero de la poblacion."
+
+- Class: cmd_question
+  Output: "Calcula el promedio de tus proporciones simuladas."
+  CorrectAnswer: "mean(simProporciones)"
+  AnswerTests: omnitest(correctExpr='mean(simProporciones)')
+  Hint: "Ejecuta la funcion mean() en la consola."
+
+- Class: mult_question
+  Output: "Al comparar 'mean(simProporciones)' con la proporcion real de exitos. 
+  Que propiedad de la distribucion de la proporcion se confirma?"
+  AnswerChoices: "La proporcion muestral es un estimador insesgado de la proporcion poblacional.;La proporcion muestral siempre genera un sesgo positivo.;El tamaño de muestra invalida la estimacion de proporciones."
+  CorrectAnswer: "La proporcion muestral es un estimador insesgado de la proporcion poblacional."
+  AnswerTests: omnitest(correctVal='La proporcion muestral es un estimador insesgado de la proporcion poblacional.')
+  Hint: "El promedio de las proporciones muestrales coincide con el valor verdadero de la poblacion."
+
+- Class: text
+  Output: "Excelente trabajo, has completado exitosamente la Actividad Integradora del curso y con eso completaste todo el curso felicidades."
