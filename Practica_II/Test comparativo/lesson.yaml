@@ -1,0 +1,88 @@
+- Class: meta
+  Course: Unidad II Muestreo
+  Lesson: Test_comparativo
+  Author: Sergio Solís
+  Type: Standard
+  Organization: Universidad Autonoma De Ciudad Juarez
+  Version: 2.4.5
+- Class: text
+  Output: "En esta parte del curso se evaluara si has comprendido la diferencia 
+  entre los diferentes tipos de muestreo. Se te mostraran distintos escenarios y
+  tienes que elegir a que tipo de muestreo corresponde."
+  
+- Class: mult_question
+  Output: "1. Tienes una lista de 100 estudiantes. Quieres escoger a 10 que van 
+  a presentar un proyecto, asi que usas un programa para generar 10 números 
+  aleatorios y eliges a las personas que corresponden a esos números.
+  Qué tipo de muestreo aplicaste?"
+  AnswerChoices: "Aleatorio Simple; Sistematico; Por Conveniencia"
+  CorrectAnswer: "Aleatorio Simple"
+  AnswerTests: omnitest(correctVal= 'Aleatorio Simple')
+  Hint: "Observa que se estan sacando numeros al azar"
+
+- Class: text
+  Output: "Correcto! En el muestreo Aleatorio Simple, cada individuo tiene 
+  exactamente la misma probabilidad de ser elegido, sin ninguna regla o división 
+  previa."
+  
+- Class: mult_question
+  Output: "2. Quieres saber la opinión sobre la cafetería de la universidad. 
+  Divides a los estudiantes por carrera y eliges al azar a 5 alumnos de cada una.
+  Qué método es?"
+  AnswerChoices: "Muestreo Sistemático; Muestreo Estratificado; Muestreo por Conveniencia"
+  CorrectAnswer: "Muestreo Estratificado"
+  AnswerTests: omnitest(correctVal= 'Muestreo Estratificado')
+  Hint: "Recuerda que aquí separaste a la población en grupos y tomaste ALGUNAS muestras de cada uno"
+  
+- Class: text
+  Output: "Bien! En el muestreo Estratificado, divides a la población en grupos 
+  (estratos) y te aseguras de tomar muestra de algunos individuos de 
+  absolutamente todos los grupos para que estén representados."
+  
+- Class: mult_question
+  Output: "3. En una fabrica de computadoras, decides revisar el control de calidad 
+  de 1 de cada 20 equipos que salen de la línea de ensamblaje (el 20, 40, 60...). 
+  ¿Qué método estás utilizando?"
+  AnswerChoices: "Muestreo por Conglomerados; Muestreo Sistemático; Muestreo Estratificado"
+  CorrectAnswer: "Muestreo Sistemático"
+  AnswerTests: omnitest(correctVal= 'Muestreo Sistemático')
+  Hint: "Estás siguiendo un sistema o intervalo numérico constante."
+  
+- Class: text
+  Output: "Exacto! El muestreo Sistemático se basa en seleccionar elementos 
+  siguiendo un patrón o intervalo regular (como elegir 1 de cada 'k' elementos 
+  de una lista o línea de producción)."
+  
+- Class: mult_question
+  Output: "4. Necesitas probar la comodidad de un nuevo modelo de teclado. 
+  Para acabar rapido tu tarea, se lo das a probar unicamente a los tres amigos 
+  que están sentados contigo en la biblioteca. Qué muestreo utilizaste?"
+  AnswerChoices: "Muestreo Aleatorio Simple; Muestreo Sistemático; Muestreo por Conveniencia"
+  CorrectAnswer: "Muestreo por Conveniencia" 
+  AnswerTests: omnitest(correctVal= 'Muestreo por Conveniencia')
+  Hint: "No usaste el azar, tomaste lo que tenías más a la mano."
+
+- Class: text
+  Output: "Así es! Usaste el Muestreo por Conveniencia. No hubo selección matemática
+  ni aleatoria; tomaste la muestra basandote exclusivamente en la facilidad, 
+  rapidez y accesibilidad."
+  
+
+- Class: mult_question
+  Output: "5. Una ciudad tiene 50 hospitales. Para hacer un estudio rapido, seleccionas 
+  3 hospitales al azar y encuestas a TODOS los doctores que trabajan dentro de esos 3 hospitales. 
+  Que tipo de muestreo es este?"
+  AnswerChoices: "Muestreo por Conglomerados; Muestreo Estratificado; Aleatorio Simple"
+  CorrectAnswer: "Muestreo por Conglomerados"
+  AnswerTests: omnitest(correctVal= 'Muestreo por Conglomerados')
+  Hint: "Seleccionaste grupos al azar y evaluaste todo en su interior."
+
+- Class: text
+  Output: "Correcto! Esta es la regla de los Conglomerados: seleccionas solo 
+  ALGUNOS grupos  de la población y tomas a TODOS los individuos dentro de ellos, 
+  ignorando al resto de los grupos."
+  
+- Class: text
+  Output: "Bien has concluido la prueba demostrando que comprendes cada muestreo."
+  
+  
