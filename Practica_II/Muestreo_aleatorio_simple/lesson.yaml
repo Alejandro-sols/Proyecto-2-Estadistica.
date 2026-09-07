@@ -1,0 +1,66 @@
+- Class: meta
+  Course: Practica_II
+  Lesson: Muestreo aleatorio simple
+  Author: Emanuel Fernandez Salome
+  Type: Standard
+  Organization: UACJ
+  Version: 2.4.5
+  
+- Class: text
+  Output: "En esta leccion aprenderas que es el Muestreo Aleatorio Simple (MAS), sus requisitos matematicos de equiprobabilidad, su implementacion en R y la relacion entre estadisticos muestrales y parametros poblacionales."
+
+- Class: mult_question
+  Output: "En un Muestreo Aleatorio Simple (MAS) de tamano n extraido de una poblacion N, ¿que condicion debe cumplirse de manera estricta?"
+  AnswerChoices: "Cada subconjunto posible de tamano n tiene exactamente la misma probabilidad de ser seleccionado;Las observaciones se seleccionan a intervalos fijos de tiempo;La poblacion debe dividirse previamente en estratos disjuntos;Se eligen primero los datos con valores extremos"
+  CorrectAnswer: "Cada subconjunto posible de tamano n tiene exactamente la misma probabilidad de ser seleccionado"
+  AnswerTests: omnitest(correctVal='Cada subconjunto posible de tamano n tiene exactamente la misma probabilidad de ser seleccionado')
+  Hint: "El principio fundamental del MAS es la equiprobabilidad de todas las muestras posibles de tamano n."
+
+- Class: text
+  Output: "En tu entorno de trabajo se cargo previamente una poblacion simulada llamada 'poblacion_microservicios' con N = 500 microservicios y su medicion 'tiempo_ms'."
+
+- Class: cmd_question
+  Output: "Observa las primeras filas del data frame ejecutando head(poblacion_microservicios)."
+  CorrectAnswer: "head(poblacion_microservicios)"
+  AnswerTests: omnitest(correctExpr='head(poblacion_microservicios)')
+  Hint: "Escribe head(poblacion_microservicios)"
+
+- Class: cmd_question
+  Output: "El parametro poblacional desconocido o real en la practica aqui lo conocemos. Consulta la media de la poblacion imprimiendo la variable 'media_verdadera'."
+  CorrectAnswer: "media_verdadera"
+  AnswerTests: expr_identical_to('media_verdadera')
+  Hint: "Solo escribe media_verdadera en la consola."
+
+- Class: cmd_question
+  Output: "Para obtener reproducibilidad en tu sesion, fija la semilla pseudoaleatoria en 42 ejecutando set.seed(42)."
+  CorrectAnswer: "set.seed(42)"
+  AnswerTests: expr_identical_to('set.seed(42)')
+  Hint: "Ejecuta set.seed(42)"
+
+- Class: cmd_question
+  Output: "Extrae una muestra aleatoria simple de indices (tamano n = 30 sin reemplazo) sobre los 500 servicios y guardala en 'indices_muestra' usando sample(1:500, size = 30, replace = FALSE)."
+  CorrectAnswer: "indices_muestra <- sample(1:500, size = 30, replace = FALSE)"
+  AnswerTests: expr_identical_to('indices_muestra <- sample(1:500, size = 30, replace = FALSE)')
+  Hint: "Escribe: indices_muestra <- sample(1:500, size = 30, replace = FALSE)"
+
+- Class: cmd_question
+  Output: "Filtra la poblacion con los indices seleccionados creando el data frame 'muestra_mas': muestra_mas <- poblacion_microservicios[indices_muestra, ]"
+  CorrectAnswer: "muestra_mas <- poblacion_microservicios[indices_muestra, ]"
+  AnswerTests: expr_identical_to('muestra_mas <- poblacion_microservicios[indices_muestra, ]')
+  Hint: "Usa: muestra_mas <- poblacion_microservicios[indices_muestra, ]"
+
+- Class: cmd_question
+  Output: "Calcula el estimador puntual (media muestral) del tiempo de respuesta con mean(muestra_mas$tiempo_ms)."
+  CorrectAnswer: "mean(muestra_mas$tiempo_ms)"
+  AnswerTests: omnitest(correctExpr='mean(muestra_mas$tiempo_ms)')
+  Hint: "Escribe: mean(muestra_mas$tiempo_ms)"
+
+- Class: mult_question
+  Output: "Observa el valor obtenido en tu consola comparado con 'media_verdadera'. ¿A que se debe la discrepancia numerica entre ambos valores?"
+  AnswerChoices: "Al error de muestreo natural inherente a estimar con un subconjunto n < N;A un error en el algoritmo de R Studio;A que el muestreo fue sesgado;A que n debio ser exactamente igual a N para poder calcular la media"
+  CorrectAnswer: "Al error de muestreo natural inherente a estimar con un subconjunto n < N"
+  AnswerTests: omnitest(correctVal='Al error de muestreo natural inherente a estimar con un subconjunto n < N')
+  Hint: "La diferencia entre el estadistico y el parametro en un diseno no sesgado se conoce como variabilidad o error muestral."
+
+- Class: text
+  Output: "¡Excelente trabajo! Has implementado un Muestreo Aleatorio Simple en R, comparado el parametro con su estimador y comprendido el origen del error de muestreo."
