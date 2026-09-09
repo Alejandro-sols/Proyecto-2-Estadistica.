@@ -1,66 +1,72 @@
 - Class: meta
   Course: Practica_II
-  Lesson: Muestreo aleatorio simple
+  Lesson: Muestreo sistematico
   Author: Emanuel Fernandez Salome
   Type: Standard
   Organization: UACJ
   Version: 2.4.5
+
+- Class: text
+  Output: "Bienvenido a la leccion de Muestreo Sistematico. En este modulo aprenderas a determinar el intervalo de seleccion (k), el arranque aleatorio (A), la seleccion secuencial en R y los riesgos asociados a la periodicidad."
+
+- Class: text
+  Output: "El muestreo sistematico selecciona unidades a intervalos regulares a lo largo de un marco ordenado. Para determinar cada cuanto seleccionar un elemento, calculamos el intervalo de elevacion k como la proporcion entre el tamaño poblacional N y el tamaño muestral n (k = N / n). (2022, Enrique Rus Arias)."
+
+- Class: mult_question
+  Output: "Deseamos seleccionar una muestra de n = 40 transacciones a partir de un log ordenado temporalmente con N = 800 registros. ¿Cual es el intervalo de elevacion o salto sistematico k = N / n?"
+  AnswerChoices: "20;40;80;10"
+  CorrectAnswer: "20"
+  AnswerTests: omnitest(correctVal='20')
+  Hint: "Divide 800 entre 40."
+
+- Class: text
+  Output: "Exacto, k = 20. El siguiente paso en el muestreo sistematico 1-en-k es elegir un punto de arranque aleatorio 'A' estrictamente entre 1 y k (equiprobabilidad de origen)."
+
+- Class: text
+  Output: "Fijar una semilla con set.seed() asegura que la generacion de numeros aleatorios sea reproducible. Esto garantiza que cualquier analista obtenga exactamente el mismo punto de arranque. (s.f ; Barry Lawson, Larry Leemis, Vadim Kudlay)"
+
+- Class: cmd_question
+  Output: "Fija la semilla en 10 con set.seed() para garantizar reproducibilidad."
+  CorrectAnswer: "set.seed(10)"
+  AnswerTests: expr_identical_to('set.seed(10)')
+  Hint: "Escribe: set.seed(10)"
+
+- Class: cmd_question
+  Output: "Selecciona el arranque aleatorio 'arranque' eligiendo un unico numero entero entre 1 y 20 usando 1:20 y 1."
+  CorrectAnswer: "arranque <- sample(1:20, 1)"
+  AnswerTests: expr_identical_to('arranque <- sample(1:20, 1)')
+  Hint: "Asignale a arranque: sample(), dentro de sample van los valores dados"
   
+- Class: cmd_question
+  Output: "Verifica el valor de arranque imprimiendo la variable 'arranque'."
+  CorrectAnswer: "arranque"
+  AnswerTests: expr_identical_to('arranque')
+  Hint: "Solo escribe arranque en la consola y presiona Enter."
+
 - Class: text
-  Output: "En esta leccion aprenderas que es el Muestreo Aleatorio Simple (MAS), sus requisitos matematicos de equiprobabilidad, su implementacion en R y la relacion entre estadisticos muestrales y parametros poblacionales."
+  Output: "Una vez definido el arranque A y el intervalo k, la secuencia de elementos elegidos sera A, A+k, A+2k, ..., hasta cubrir el marco N. En r, la funcion seq(from, to, by) genera secuencias con saltos equidistantes. (2019, R Core Team)."
+  
+- Class: cmd_question
+  Output: "Los elementos seleccionados seran: A, A+k, A+2k, ... Construye el vector 'indices_sist' usando seq(), si no sbaes como usarla usa ?seq."
+  CorrectAnswer: "indices_sist <- seq(from = arranque, to = 800, by = 20)"
+  AnswerTests: expr_identical_to('indices_sist <- seq(from = arranque, to = 800, by = 20)')
+  Hint: "Usa seq(from = ?, to = ?, by = ?), coloca lo que vaya en los '?'."
+
+- Class: cmd_question
+  Output: "Verifica que la muestra sistemica contenga exactamente n = 40 elementos ejecutando la funcion length con la variable que acabas de modificar."
+  CorrectAnswer: "length(indices_sist)"
+  AnswerTests: omnitest(correctExpr='length(indices_sist)', correctVal=40)
+  Hint: "Usa length(), si no sabes como usa ?length"
+
+- Class: text
+  Output: "La mayor vulnerabilidad del muestreo sistematico es la 'periodicidad': Si los datos presentan un patron o ciclo repetitivo oculto que coincide con el intervalo k, la muestra capturara siempre el mismo comportamiento."
 
 - Class: mult_question
-  Output: "En un Muestreo Aleatorio Simple (MAS) de tamano n extraido de una poblacion N, ¿que condicion debe cumplirse de manera estricta?"
-  AnswerChoices: "Cada subconjunto posible de tamano n tiene exactamente la misma probabilidad de ser seleccionado;Las observaciones se seleccionan a intervalos fijos de tiempo;La poblacion debe dividirse previamente en estratos disjuntos;Se eligen primero los datos con valores extremos"
-  CorrectAnswer: "Cada subconjunto posible de tamano n tiene exactamente la misma probabilidad de ser seleccionado"
-  AnswerTests: omnitest(correctVal='Cada subconjunto posible de tamano n tiene exactamente la misma probabilidad de ser seleccionado')
-  Hint: "El principio fundamental del MAS es la equiprobabilidad de todas las muestras posibles de tamano n."
+  Output: "Supongamos que auditamos un servidor cuyo trafico experimenta un pico ciclico de sobrecarga cada 20 transacciones. Si nuestro k = 20 coincide con esa periodicidad natural, ¿que problema estadistico grave ocurre?"
+  AnswerChoices: "Se introduce un sesgo sistematico severo en la muestra al capturar siempre el mismo punto del ciclo;El software lanzara un error de desbordamiento de memoria;La varianza de la muestra se vuelve cero obligatoriamente;El muestreo se convierte automaticamente en un muestreo estratificado"
+  CorrectAnswer: "Se introduce un sesgo sistematico severo en la muestra al capturar siempre el mismo punto del ciclo"
+  AnswerTests: omnitest(correctVal='Se introduce un sesgo sistematico severo en la muestra al capturar siempre el mismo punto del ciclo')
+  Hint: "Si el intervalo k entra en fase o resonancia con un patron repetitivo oculto en el marco muestral, se destruye la representatividad."
 
 - Class: text
-  Output: "En tu entorno de trabajo se cargo previamente una poblacion simulada llamada 'poblacion_microservicios' con N = 500 microservicios y su medicion 'tiempo_ms'."
-
-- Class: cmd_question
-  Output: "Observa las primeras filas del data frame ejecutando head(poblacion_microservicios)."
-  CorrectAnswer: "head(poblacion_microservicios)"
-  AnswerTests: omnitest(correctExpr='head(poblacion_microservicios)')
-  Hint: "Escribe head(poblacion_microservicios)"
-
-- Class: cmd_question
-  Output: "El parametro poblacional desconocido o real en la practica aqui lo conocemos. Consulta la media de la poblacion imprimiendo la variable 'media_verdadera'."
-  CorrectAnswer: "media_verdadera"
-  AnswerTests: expr_identical_to('media_verdadera')
-  Hint: "Solo escribe media_verdadera en la consola."
-
-- Class: cmd_question
-  Output: "Para obtener reproducibilidad en tu sesion, fija la semilla pseudoaleatoria en 42 ejecutando set.seed(42)."
-  CorrectAnswer: "set.seed(42)"
-  AnswerTests: expr_identical_to('set.seed(42)')
-  Hint: "Ejecuta set.seed(42)"
-
-- Class: cmd_question
-  Output: "Extrae una muestra aleatoria simple de indices (tamano n = 30 sin reemplazo) sobre los 500 servicios y guardala en 'indices_muestra' usando sample(1:500, size = 30, replace = FALSE)."
-  CorrectAnswer: "indices_muestra <- sample(1:500, size = 30, replace = FALSE)"
-  AnswerTests: expr_identical_to('indices_muestra <- sample(1:500, size = 30, replace = FALSE)')
-  Hint: "Escribe: indices_muestra <- sample(1:500, size = 30, replace = FALSE)"
-
-- Class: cmd_question
-  Output: "Filtra la poblacion con los indices seleccionados creando el data frame 'muestra_mas': muestra_mas <- poblacion_microservicios[indices_muestra, ]"
-  CorrectAnswer: "muestra_mas <- poblacion_microservicios[indices_muestra, ]"
-  AnswerTests: expr_identical_to('muestra_mas <- poblacion_microservicios[indices_muestra, ]')
-  Hint: "Usa: muestra_mas <- poblacion_microservicios[indices_muestra, ]"
-
-- Class: cmd_question
-  Output: "Calcula el estimador puntual (media muestral) del tiempo de respuesta con mean(muestra_mas$tiempo_ms)."
-  CorrectAnswer: "mean(muestra_mas$tiempo_ms)"
-  AnswerTests: omnitest(correctExpr='mean(muestra_mas$tiempo_ms)')
-  Hint: "Escribe: mean(muestra_mas$tiempo_ms)"
-
-- Class: mult_question
-  Output: "Observa el valor obtenido en tu consola comparado con 'media_verdadera'. ¿A que se debe la discrepancia numerica entre ambos valores?"
-  AnswerChoices: "Al error de muestreo natural inherente a estimar con un subconjunto n < N;A un error en el algoritmo de R Studio;A que el muestreo fue sesgado;A que n debio ser exactamente igual a N para poder calcular la media"
-  CorrectAnswer: "Al error de muestreo natural inherente a estimar con un subconjunto n < N"
-  AnswerTests: omnitest(correctVal='Al error de muestreo natural inherente a estimar con un subconjunto n < N')
-  Hint: "La diferencia entre el estadistico y el parametro en un diseno no sesgado se conoce como variabilidad o error muestral."
-
-- Class: text
-  Output: "¡Excelente trabajo! Has implementado un Muestreo Aleatorio Simple en R, comparado el parametro con su estimador y comprendido el origen del error de muestreo."
+  Output: "Excelente! Has dominado el calculo del intervalo k, la definicion del arranque aleatorio A, la generacion con seq() y la advertencia metodologica contra patrones ciclicos o periodicidad oculta."
