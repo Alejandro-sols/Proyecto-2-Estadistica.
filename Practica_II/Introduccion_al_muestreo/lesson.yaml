@@ -9,6 +9,9 @@
 - Class: text
   Output: "Bienvenido a la Unidad II: Muestreo. En esta primera leccion comprenderas los fundamentos del diseno muestral, la diferencia entre poblacion y muestra, el concepto de marco muestral y el muestreo no probabilistico por conveniencia."
 
+- Class: text
+  Output: "En estadistica, la poblacion objetivo (N) representa el conjunto completo de elementos o eventos que comparten una caracteristica comun que deseamos estudiar. Una muestra (n) es unicamente una fraccion seleccionada de dicha poblacion. (2022, Guillermo Westreicher)"
+
 - Class: mult_question
   Output: "Una empresa de software desea evaluar la latencia de una API que recibe 1,000,000 de peticiones al dia. Por limitaciones de almacenamiento, analiza unicamente 2,000 peticiones seleccionadas al azar. En este escenario, ¿que representa el millon de peticiones?"
   AnswerChoices: "La poblacion objetivo;La muestra representativa;El marco muestral;El estadistico de interes"
@@ -19,12 +22,18 @@
 - Class: text
   Output: "Exacto. La poblacion (N) es la totalidad de elementos bajo estudio, mientras que la muestra (n) es un subconjunto medible. Para poder extraer una muestra probabilistica, requerimos un 'marco muestral': una lista o mecanismo que identifique a todos los individuos de la poblacion."
 
+- Class: text
+  Output: "Existen metodos de muestreo no probabilisticos donde los elementos no son elegidos al azar. El muestreo por conveniencia se basa en seleccionar unidades accesibles o disponibles de forma inmediata para el investigador. (2022, Guilelrmo Westreicher)"
+  
 - Class: mult_question
   Output: "Supongamos que un desarrollador publica una encuesta sobre rendimiento del software unicamente en su canal personal de Discord y saca conclusiones sobre TODOS los usuarios globales de la aplicacion. ¿Que tipo de muestreo se utilizo?"
   AnswerChoices: "Muestreo por conveniencia;Muestreo aleatorio simple;Muestreo estratificado;Muestreo sistematico"
   CorrectAnswer: "Muestreo por conveniencia"
   AnswerTests: omnitest(correctVal='Muestreo por conveniencia')
   Hint: "Es un metodo no probabilistico donde se eligen los elementos disponibles mas accesibles para el investigador."
+
+- Class: text
+  Output: "Debido a la ausencia de aleatoriedad en el muestreo por conveniencia, las muestras resultantes carecen de representatividad probabilistica, lo que impide extrapolar o generalizar estadisticamente los hallazgos a toda la poblacion."
 
 - Class: mult_question
   Output: "Respecto a la inferencia estadistica en el muestreo por conveniencia, ¿cual es su principal desventaja y limitacion critica?"
@@ -33,17 +42,20 @@
   AnswerTests: omnitest(correctVal='No permite cuantificar el error muestral y suele inducir sesgos sistematicos de seleccion')
   Hint: "Al no haber probabilidades de inclusion conocidas ni aleatoriedad, no se pueden aplicar las leyes clasicas de distribucion probabilistica."
 
+- Class: text
+  Output: "Ahora utilizaremos el lenguaje R para construir nuestro primer marco muestral estructurado y determinar la dimension de una poblacion finita."
+
 - Class: cmd_question
   Output: "Vamos a la practica en R. Supongamos que tienes una poblacion de 50 servidores identificados del 1 al 50. Guarda en un vector 'N_servidores' la secuencia del 1 al 50 usando el operador dos puntos (:)."
   CorrectAnswer: "N_servidores <- 1:50"
   AnswerTests: expr_identical_to('N_servidores <- 1:50')
-  Hint: "Escribe: N_servidores <- 1:50"
+  Hint: "Coloca ':' entre  el 1 y el 50, luego dale ese valor a la variable N_servidores."
 
 - Class: cmd_question
   Output: "Para inspeccionar rapidamente la cantidad total de elementos en tu poblacion finita, calcula la longitud de 'N_servidores' usando la funcion length()."
   CorrectAnswer: "length(N_servidores)"
   AnswerTests: omnitest(correctExpr='length(N_servidores)', correctVal=50)
-  Hint: "Usa la instruccion length(N_servidores)"
+  Hint: "Usa la funcion length()"
 
 - Class: text
-  Output: "¡Excelente! Has completado los conceptos base: distincion entre poblacion, marco muestral y los riesgos de sesgo inherentes al muestreo no probabilistico. En la siguiente leccion abordaremos el Muestreo Aleatorio Simple."
+  Output: "Excelente! Has completado los conceptos base: distincion entre poblacion, marco muestral y los riesgos de sesgo inherentes al muestreo no probabilistico. En la siguiente leccion abordaremos el Muestreo Aleatorio Simple."
